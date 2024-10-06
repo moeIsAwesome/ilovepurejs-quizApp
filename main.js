@@ -7,8 +7,10 @@ const optionA_text = document.querySelector('#a_text');
 const optionB_text = document.querySelector('#b_text');
 const optionC_text = document.querySelector('#c_text');
 const optionD_text = document.querySelector('#d_text');
+const warningArea = document.querySelector('.warning-area');
 
 let currentQuestion = 0;
+let numberOfQuestions = quizQuestions.length;
 
 function loadQuestions() {
   deselectAll();
@@ -21,21 +23,13 @@ function loadQuestions() {
 loadQuestions();
 
 function getSelectedOption() {
-  let selectedOption;
-  allOptions.forEach((option) => {
-    if (option.checked) {
-      selectedOption = option.id;
-    }
-  });
-  return selectedOption;
+  const selectedOption = document.querySelector('input[name="option"]:checked');
+  return selectedOption ? selectedOption : null;
 }
 
 function deselectAll() {
-  allOptions.forEach((e) => {
-    e.checked = false;
-  });
+  allOptions.forEach((option) => (option.checked = false));
 }
-console.log(currentQuestion);
 
 submitButton.addEventListener('click', () => {
   let selectedAnswerByuser = getSelectedOption();
@@ -44,16 +38,12 @@ submitButton.addEventListener('click', () => {
     return;
   }
   if (selectedAnswerByuser === quizQuestions[currentQuestion].correct) {
-    console.log('Huraaay!');
+    warningArea.innerHTML = '<p style="color: green;">Correct!</p>';
   } else {
-    console.log('Wrong!');
-  }
-  if (currentQuestion === quizQuestions.length - 1) {
-    submitButton.disabled = true;
-    return;
+    warningArea.innerHTML = '<p style="color: red;">Wrong!</p>';
   }
 
-  if (currentQuestion < quizQuestions.length - 1) {
+  if (currentQuestion < numberOfQuestions) {
     currentQuestion++;
     loadQuestions();
   }

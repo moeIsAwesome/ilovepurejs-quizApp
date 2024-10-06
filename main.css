@@ -22,7 +22,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 25%;
+  height: 60%;
   width: 40%;
   background-color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
